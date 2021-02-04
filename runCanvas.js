@@ -8,6 +8,11 @@
  *
  * Students are welcome to read the code to understand it, but are not
  * expected to modify this file.
+ * 
+ * The simple entry point (that most students will use) is the "runCanvas"
+ * function that is at the end of the file. The RunCanvas class is the internal
+ * implementation. Students are welcome to read the code - or to use it directly
+ * but it isn't necessary for class.
  */
 
 import { insertAfter } from "./inputHelpers.js";

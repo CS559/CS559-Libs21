@@ -34,15 +34,15 @@ export function draggablePoints(
   changeNumber = undefined
 ) {
   // keep state within the closure of the function
-  let theCanvas = canvas;
-  let thePoints = pointList;
-  let theRedraw = redraw;
+  const theCanvas = canvas;
+  const thePoints = pointList;
+  const theRedraw = redraw;
   let dragging = -1;
 
   if (!circleRadius) {
     circleRadius = 10;
   }
-  let circRadiusSq = circleRadius * circleRadius;
+  const circRadiusSq = circleRadius * circleRadius;
 
   canvas.addEventListener("mousedown", mouseDown);
   canvas.addEventListener("mousemove", drag);
@@ -64,7 +64,7 @@ export function draggablePoints(
     // in the canvas coorindate system!
     let x = evt.clientX;
     let y = evt.clientY;
-    var canvasbox = theCanvas.getBoundingClientRect();
+    let canvasbox = theCanvas.getBoundingClientRect();
     x -= canvasbox.left;
     y -= canvasbox.top;
     return [x, y];
