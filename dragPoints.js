@@ -62,28 +62,27 @@ export function draggablePoints(
   function mousePosition(evt) {
     // remember - the clientX,clientY is not the actual mouse position
     // in the canvas coorindate system!
-    let x = evt.clientX;
-    let y = evt.clientY;
-    let canvasbox = theCanvas.getBoundingClientRect();
-    x -= canvasbox.left;
-    y -= canvasbox.top;
-    return [x, y];
+    const x = evt.clientX;
+    const y = evt.clientY;
+    const canvasbox = theCanvas.getBoundingClientRect();
+    return [x - canvasbox.left, y - canvasbox.top];
   }
 
   // select the point nearest to the mouse
   // note that this returns the index of the point - it does not set selection
   // or cause a redraw - you probably don't want to use this
-  // as a handler
+  // as a handler - it's a utility for the handler
   function pickPoint(evt) {
-    let [x, y] = mousePosition(evt);
+    const [x, y] = mousePosition(evt);
 
-    // nothing is selected, and minimum distance
+    // this finds the closest thing - but only within the radius
+    // nothing is selected, and minimum distance is the radius
     let sel = -1;
     let minD = circRadiusSq;
     thePoints.forEach((pt, i) => {
-      let dx = pt[0] - x;
-      let dy = pt[1] - y;
-      let d = dx * dx + dy * dy;
+      const dx = pt[0] - x;
+      const dy = pt[1] - y;
+      const d = dx * dx + dy * dy;
       if (d < minD) {
         minD = d;
         sel = i;

@@ -58,14 +58,14 @@ export function insertElement(el, where = undefined) {
 export function makeCheckbox(str, where, label = undefined) {
   label = label ? label : str;
 
-  let safename = str.replace(/ /g, str);
+  const safename = str.replace(/ /g, str);
 
-  let checkbox = document.createElement("input");
+  const checkbox = document.createElement("input");
   checkbox.setAttribute("type", "checkbox");
   checkbox.id = "check-" + safename;
   insertElement(checkbox, where);
 
-  let checklabel = document.createElement("label");
+  const checklabel = document.createElement("label");
   checklabel.setAttribute("for", "check-" + safename);
   checklabel.innerText = label;
   insertAfter(checklabel, checkbox);
@@ -74,9 +74,9 @@ export function makeCheckbox(str, where, label = undefined) {
 }
 
 export function makeButton(str, where) {
-  let safename = str.replace(/ /g, str);
+  const safename = str.replace(/ /g, str);
 
-  let button = document.createElement("button");
+  const button = document.createElement("button");
   button.innerHTML = str;
   insertElement(button, where);
 
@@ -89,6 +89,7 @@ export function makeBoxDiv(params, where) {
   if (!params.margin) params.margin = 5;
   if (!params.padding) params.padding = 5;
 
+  // this is not a constant because we might add to it
   let style = `border:2px solid black; padding:${params.padding}px; margin:${params.margin}px; border-radius:5px`;
 
   if (params.width)
@@ -97,7 +98,7 @@ export function makeBoxDiv(params, where) {
   if (params.flex)
     style += "; display: flex; flex-direction: row; flex-wrap:wrap";
 
-  let div = document.createElement("div");
+  const div = document.createElement("div");
   div.setAttribute("style", style);
   insertElement(div, where);
   return div;
@@ -131,7 +132,8 @@ export function makeOutbox(str, where, label) {
   return text;
 }
 /**
- *
+ * Make a selector (a drop down for a list of values)
+ * 
  * @param {Array<String>} values
  * @param {WhereSpec} where
  * @param {string} [initial]
@@ -152,6 +154,8 @@ export function makeSelect(values, where, initial) {
 
 /**
  * just stick a break in (to start a new line)
+ * 
+ * @param {WhereSpec} where
  */
 export function makeBreak(where) {
   let br = document.createElement("BR");
@@ -161,6 +165,11 @@ export function makeBreak(where) {
   return br;
 }
 
+/**
+ * sticks in a break with the styling set to help with flex layout
+ * 
+ * @param {WhereSpec} where 
+ */
 export function makeFlexBreak(where) {
     let br = document.createElement("DIV");
     br.setAttribute("style","flex-basis:100%; height:0px");
@@ -186,24 +195,34 @@ export function makeHead(text, where, params = {}) {
   if ("top" in params) style += `margin-top:${params.top}px;`;
   if ("bottom" in params) style += `margin-bottom:${params.bottom}px;`;
   if ("tight" in params) style += `margin-top:0;margin-bottom:0`;
-  let level = params.level || 3;
-  let htype = "H" + level;
-  let head = document.createElement(htype);
+  const level = params.level || 3;
+  const htype = "H" + level;
+  const head = document.createElement(htype);
   head.setAttribute("style", style);
   head.innerText = text;
   insertElement(head, where);
   return head;
 }
 
+/**
+ * Make a paragraph element and insert it into the DOM
+ * @param {*} text 
+ * @param {WhereSpec} where 
+ */
 export function makeParagraph(text, where) {
-  let par = document.createElement("p");
+  const par = document.createElement("p");
   par.innerText = text;
   insertElement(par, where);
   return par;
 }
 
+/**
+ * 
+ * @param {*} text 
+ * @param {WhereSpec} where 
+ */
 export function makeSpan(text, where) {
-  let par = document.createElement("span");
+  const par = document.createElement("span");
   par.innerText = text;
   insertElement(par, where);
   return par;

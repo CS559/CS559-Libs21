@@ -141,13 +141,17 @@ export class RunCanvas {
 }
 
 /**
- * simple entry point - give it the name of a canvas, and it guesses the rest
- * but it also loses access to all the parameters
- *
- * @param {HTMLCanvasElement|string} canvasName
- * @param {function(HTMLCanvasElement, Number) : any} [drawFunc]
- */
-
+  * simple entry point - give it the name of a canvas, and it guesses the rest
+  * but it also loses access to all the parameters
+  * 
+  * @param {HTMLCanvasElement|string} canvasName 
+  * @param {function(HTMLCanvasElement, Number) : any} [drawFunc] 
+  * @param {*} initial 
+  * @param {*} noloop 
+  * @param {*} min 
+  * @param {*} max 
+  * @param {*} step 
+  */
 export function runCanvas(
   canvasName,
   drawFunc = undefined,
