@@ -50,7 +50,8 @@ export function insertElement(el, where = undefined) {
 }
 
 /**
- *
+ * Make a Checkbox - including a label. 
+ * If no label is given, the tag string is used as the label
  * @param {String} str
  * @param {WhereSpec} [where]
  * @param {String} [label]
@@ -73,6 +74,12 @@ export function makeCheckbox(str, where, label = undefined) {
   return checkbox;
 }
 
+/**
+ * Make a button
+ * 
+ * @param {String} str - element ID (used for label as well) 
+ * @param {WhereSpec} where 
+ */
 export function makeButton(str, where) {
   const safename = str.replace(/ /g, str);
 
@@ -83,6 +90,18 @@ export function makeButton(str, where) {
   return button;
 }
 
+/**
+ * Make a div with a box border around it - useful for making panels
+ * 
+ * params is an object that can have:
+ * margin
+ * padding
+ * width
+ * flex (binary - whether this should allow for layout inside)
+ * 
+ * @param {Object} [params] 
+ * @param {WhereSpec} [where] 
+ */
 export function makeBoxDiv(params, where) {
   if (!params) params = {};
 
@@ -104,6 +123,11 @@ export function makeBoxDiv(params, where) {
   return div;
 }
 
+/**
+ * create an empty DIV with its style set to allow for Flex layout
+ * 
+ * @param {WhereSpec} where 
+ */
 export function makeFlexDiv(where) {
   let style = "display: flex; flex-direction: row; flex-wrap:wrap";
   let div = document.createElement("div");
@@ -112,6 +136,14 @@ export function makeFlexDiv(where) {
   return div;
 }
 
+/**
+ * Make a textbox that is only for outputting text - it is read only
+ * the label = str if none is given
+ * 
+ * @param {String} str 
+ * @param {WhereSpec} where 
+ * @param {String} [label] 
+ */
 export function makeOutbox(str, where, label) {
   label = label ? label : str;
 
@@ -131,6 +163,7 @@ export function makeOutbox(str, where, label) {
 
   return text;
 }
+
 /**
  * Make a selector (a drop down for a list of values)
  * 
@@ -217,6 +250,7 @@ export function makeParagraph(text, where) {
 }
 
 /**
+ * Make a span around a given piece of text
  * 
  * @param {*} text 
  * @param {WhereSpec} where 
@@ -232,6 +266,8 @@ export function makeSpan(text, where) {
  * Label Slider is a class (since you might want to access the component things)
  *
  * This makes a slider and a corresponding label and textbox for the value
+ * It sets up all of the controls so when the slider changes, the textbox is updated
+ * accordingly
  */
 export class LabelSlider {
   /**
@@ -299,6 +335,12 @@ export class LabelSlider {
     }
   }
 
+  /**
+   * 
+   * @param {Number} min 
+   * @param {Number} max 
+   * @param {Number} step 
+   */
   setRange(min, max, step) {
     this.range.setAttribute("min", String(min));
     this.range.setAttribute("max", String(max));
@@ -314,6 +356,10 @@ export class LabelSlider {
     return Number(this.range.value);
   }
 
+  /**
+   * 
+   * @param {Number} val 
+   */
   set(val) {
     this.range.value = String(val);
     this.update();
