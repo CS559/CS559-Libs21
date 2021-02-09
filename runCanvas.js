@@ -54,6 +54,9 @@ export class RunCanvas {
     this.drawFunc = drawFunc;
     this.noloop = noLoop;
 
+    // keep track of time - so we can measure step times
+    this.lastTime = undefined;
+
     // create the elements
     this.br = document.createElement("br");
     this.br.id = canvasName + "-br";
@@ -90,7 +93,7 @@ export class RunCanvas {
       if (self.noloop && Number(self.range.value) >= 1) {
         self.setValue(0);
       }
-      self.tick();
+      self.tick(undefined);
     };
     this.range.oninput = function() {
       let val = Number(self.range.value);
@@ -118,7 +121,16 @@ export class RunCanvas {
     }
   }
 
-  tick() {
+  /**
+   * this function doesn't directly go as a req animation from (it's a method
+   * not a function) - but it acts as if it was
+   * It is possible that tick is called without a timestamp (if the button is clicked)
+   * - if that's the case, assume a delta of 0 - we generate a redraw at the current frame
+   * @param {DOMHighResTimeStamp} timestamp 
+   */
+  tick(timestamp) {
+    // convert delta to "frames" (at 60fps)
+    const delta = ((timestamp && this.lastTime) ? timestamp-this.lastTime : 0) * 1000.0/60.0;
     let maxV = Number(this.range.max);
     let stepV = Number(this.range.step);
     let value = Number(this.range.value) + stepV;
@@ -133,8 +145,8 @@ export class RunCanvas {
     this.setValue(value);
     if (this.runbutton.checked) {
       let self = this;
-      window.requestAnimationFrame(function() {
-        self.tick();
+      window.requestAnimationFrame(function(timestamp) {
+        self.tick(timestamp);
       });
     }
   }
@@ -144,15 +156,18 @@ export class RunCanvas {
   * simple entry point - give it the name of a canvas, and it guesses the rest
   * but it also loses access to all the parameters
   * 
+  * Note that the drawing function gets the Canvas element and the slider value
+  * not the time!
+  * 
   * @param {HTMLCanvasElement|string} canvasName 
   * @param {function(HTMLCanvasElement, Number) : any} [drawFunc] 
   * @param {*} initial 
   * @param {*} noloop 
   * @param {*} min 
-  * @param {*} max 
-  * @param {*} step 
+  * @param {Number} [max=1] 
+  * @param {Number} [step=.02] - steps per frame (at 60fps)
   */
-export function runCanvas(
+ export function runCanvas(
   canvasName,
   drawFunc = undefined,
   initial = 0.5,
