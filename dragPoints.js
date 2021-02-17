@@ -16,8 +16,13 @@
   *
   * The "redraw" function is called for any event that changes the state of
   * the points (mouse down, up, move).
-  * If the redraw is called by something else (e.g., and animation loop) it
+  * If the redraw is called by something else (e.g., an animation loop) it
   * can be set to null
+  * 
+  * The redraw function is given to requestAnimationFrame, so it will be called with
+  * a timestamp parameter (not the points!).
+  * Because there is no looping, it isn't always important to use the timestamp 
+  * (we want it to be after the event, we don't care how far into the future)
   *
   * @param {HTMLCanvasElement} canvas - canvas to attach to
   * @param {Array<Array<number>>} pointList - list of points

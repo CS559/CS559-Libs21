@@ -24,7 +24,7 @@ export class RunCanvas {
   /**
    *
    * @param {HTMLCanvasElement|string} canvasNameOrCanvas
-   * @param {*} drawFunc
+   * @param {function(HTMLCanvasElement, Number) : any} drawFunc
    * @param {*} noLoop
    */
   constructor(canvasNameOrCanvas, drawFunc, noLoop = false) {
