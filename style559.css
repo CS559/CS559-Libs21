@@ -23,3 +23,14 @@ div.notebox {
     border-radius: 5px;
     width:600px;  
 }
+
+.box-container {
+  width: min-content;
+}
+.box-label {
+  font-style: italic;
+  text-align: center;
+}
+.box-tile {
+  flex-basis: min-content;
+}
