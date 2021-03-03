@@ -85,6 +85,7 @@ export function makeButton(str, where) {
 
   const button = document.createElement("button");
   button.innerHTML = str;
+  button.id = "button-" + safename;
   insertElement(button, where);
 
   return button;
@@ -157,7 +158,7 @@ export function makeOutbox(str, where, label) {
   text.setAttribute("readonly", "1");
 
   let checklabel = document.createElement("label");
-  checklabel.setAttribute("for", "check-" + safename);
+  checklabel.setAttribute("for", safename + "-text");
   checklabel.innerText = label;
   insertAfter(checklabel, text);
 
