@@ -44,7 +44,7 @@ export class RunCanvas {
       throw "RunCanvas without a Canvas to attach to!";
     }
     if (!canvasName) {
-      canvasName = "canvas-" + performance.now().toString();
+      canvasName = "canvas-" + Math.trunc(performance.now()).toString();
       console.log("RunCanvas with an unnamed canvas - naming it " + canvasName);
       canvas.id = canvasName;
     }
@@ -130,10 +130,11 @@ export class RunCanvas {
    */
   tick(timestamp) {
     // convert delta to "frames" (at 60fps)
-    const delta = ((timestamp && this.lastTime) ? timestamp-this.lastTime : 0) * 1000.0/60.0;
+    const delta = ((timestamp && this.lastTime) ? timestamp-this.lastTime : 0) * 1.0/60.0;
+    this.lastTime = timestamp;
     let maxV = Number(this.range.max);
     let stepV = Number(this.range.step);
-    let value = Number(this.range.value) + stepV;
+    let value = Number(this.range.value) + stepV * delta;
     if (this.noloop) {
       if (value >= maxV) {
         this.runbutton.checked = false;
