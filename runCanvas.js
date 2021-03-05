@@ -54,6 +54,9 @@ export class RunCanvas {
     this.drawFunc = drawFunc;
     this.noloop = noLoop;
 
+    // some style parameters
+    this.digits = 2;
+
     // keep track of time - so we can measure step times
     this.lastTime = undefined;
 
@@ -112,10 +115,10 @@ export class RunCanvas {
     this.range.setAttribute("step", String(step));
   }
 
+  // set the value of the slide - make sure to update everything
   setValue(value) {
-    let valString = String(value);
-    this.range.value = valString;
-    this.text.value = valString;
+    this.range.value = String(value);;
+    this.text.value = value.toFixed(this.digits);
     if (this.drawFunc) {
       this.drawFunc(this.canvas, value);
     }
