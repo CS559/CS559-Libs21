@@ -60,6 +60,9 @@ export class RunCanvas {
     // keep track of time - so we can measure step times
     this.lastTime = undefined;
 
+    // we need to store the value
+    this.value = 0;
+
     // create the elements
     this.br = document.createElement("br");
     this.br.id = canvasName + "-br";
@@ -117,6 +120,7 @@ export class RunCanvas {
 
   // set the value of the slide - make sure to update everything
   setValue(value) {
+    this.value = value;
     this.range.value = String(value);;
     this.text.value = value.toFixed(this.digits);
     if (this.drawFunc) {
@@ -137,7 +141,7 @@ export class RunCanvas {
     this.lastTime = timestamp;
     let maxV = Number(this.range.max);
     let stepV = Number(this.range.step);
-    let value = Number(this.range.value) + stepV * delta;
+    let value = this.value + stepV * delta;
     if (this.noloop) {
       if (value >= maxV) {
         this.runbutton.checked = false;
