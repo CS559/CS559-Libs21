@@ -78,7 +78,7 @@ export function makeCheckbox(str, where, label = undefined) {
  * Make a button
  * 
  * @param {String} str - element ID (used for label as well) 
- * @param {WhereSpec} where 
+ * @param {WhereSpec} [where] 
  */
 export function makeButton(str, where) {
   const safename = str.replace(/ /g, str);
@@ -127,7 +127,7 @@ export function makeBoxDiv(params, where) {
 /**
  * create an empty DIV with its style set to allow for Flex layout
  * 
- * @param {WhereSpec} where 
+ * @param {WhereSpec} [where] 
  */
 export function makeFlexDiv(where) {
   let style = "display: flex; flex-direction: row; flex-wrap:wrap";
@@ -142,7 +142,7 @@ export function makeFlexDiv(where) {
  * the label = str if none is given
  * 
  * @param {String} str 
- * @param {WhereSpec} where 
+ * @param {WhereSpec} [where] 
  * @param {String} [label] 
  */
 export function makeOutbox(str, where, label) {
@@ -169,7 +169,7 @@ export function makeOutbox(str, where, label) {
  * Make a selector (a drop down for a list of values)
  * 
  * @param {Array<String>} values
- * @param {WhereSpec} where
+ * @param {WhereSpec} [where]
  * @param {string} [initial]
  * @returns {HTMLSelectElement}
  */
@@ -189,7 +189,7 @@ export function makeSelect(values, where, initial) {
 /**
  * just stick a break in (to start a new line)
  * 
- * @param {WhereSpec} where
+ * @param {WhereSpec} [where]
  */
 export function makeBreak(where) {
   let br = document.createElement("BR");
@@ -202,7 +202,7 @@ export function makeBreak(where) {
 /**
  * sticks in a break with the styling set to help with flex layout
  * 
- * @param {WhereSpec} where 
+ * @param {WhereSpec} [where] 
  */
 export function makeFlexBreak(where) {
     let br = document.createElement("DIV");
@@ -241,7 +241,7 @@ export function makeHead(text, where, params = {}) {
 /**
  * Make a paragraph element and insert it into the DOM
  * @param {*} text 
- * @param {WhereSpec} where 
+ * @param {WhereSpec} [where] 
  */
 export function makeParagraph(text, where) {
   const par = document.createElement("p");
@@ -254,7 +254,7 @@ export function makeParagraph(text, where) {
  * Make a span around a given piece of text
  * 
  * @param {*} text 
- * @param {WhereSpec} where 
+ * @param {WhereSpec} [where] 
  */
 export function makeSpan(text, where) {
   const par = document.createElement("span");
