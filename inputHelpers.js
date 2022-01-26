@@ -283,6 +283,8 @@ export class LabelSlider {
    * @param {function} [params.oninput]
    * @param {WhereSpec} [params.where]
    * @param {string} [params.id]
+   * @param {boolean} [params.adjusted = false]
+   * @param {string} [params.display]
    */
   constructor(name, params) {
     let min = params.min || 0;
@@ -298,10 +300,17 @@ export class LabelSlider {
 
     this.label = document.createElement("label");
     this.label.setAttribute("for", id + "-text");
-    this.label.setAttribute(
-      "style",
-      "padding:5px; width:40px; display:inline-block;"
-    );
+    if (params.adjusted == true) {
+      this.label.setAttribute(
+        "style",
+        `padding:5px; display:${params.display}; width:${8 * name.length + 5}px;`
+      );
+    } else {
+      this.label.setAttribute(
+        "style",
+        `padding:5px; width:40px; ddisplay:${params.display};`
+      );
+    }
     this.label.innerText = name;
     this.div.appendChild(this.label);
 
@@ -309,14 +318,22 @@ export class LabelSlider {
     this.div.appendChild(this.text);
     this.text.id = id + "-text";
     this.text.setAttribute("type", "text");
-    this.text.setAttribute("style", "width:40px");
+    if (params.adjusted == true) {
+      this.text.setAttribute("style", "width:25px");
+    } else {
+      this.text.setAttribute("style", "width:40px");
+    }
     this.text.setAttribute("readonly", "1");
 
     this.range = document.createElement("input");
     this.div.appendChild(this.range);
     this.range.id = id + "-slider";
     this.range.setAttribute("type", "range");
-    this.range.setAttribute("style", `width:${width - 120}px`);
+    if (params.adjusted == true) {
+      this.range.setAttribute("style", `width:${width - 8 * name.length - 65}px`);
+    } else {
+      this.range.setAttribute("style", `width:${width - 120}px`);
+    }
     // give default values for range
     this.setRange(min, max, step);
 
